@@ -8,9 +8,9 @@ services:
     volumes:
       - .:/app
     networks:
-      - insura_net
+        - insura_net
 
-networks:
+  networks:
   insura_net:
     name: insurance-network
     external: true
