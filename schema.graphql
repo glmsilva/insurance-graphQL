@@ -1,0 +1,72 @@
+"""
+Attributes for a Insured Person query
+"""
+type InsuredPerson {
+  """
+  Insured person's CPF number
+  """
+  cpf: String!
+
+  """
+  The insured person's name
+  """
+  name: String!
+}
+
+"""
+a policy type
+"""
+type Policy {
+  """
+  the specific day when the insurance coverage begins
+  """
+  effectiveDate: String!
+
+  """
+  the day the insurance coverage ends
+  """
+  expirationDate: String!
+
+  """
+  person who will receive the benefit under the insurance policy after the occurrence loss
+  """
+  insuredPerson: InsuredPerson!
+  policyId: String!
+
+  """
+  the good of the insured
+  """
+  vehicle: Vehicle!
+}
+
+"""
+The query root of this schema
+"""
+type Query {
+  policy(policyId: String!): Policy!
+}
+
+"""
+Fields for a vehicle query
+"""
+type Vehicle {
+  """
+  Vehicle's brand
+  """
+  brand: String!
+
+  """
+  Vehicle's license plate
+  """
+  licensePlate: String!
+
+  """
+  Vehicle's model
+  """
+  model: String!
+
+  """
+  Vehicle's year released
+  """
+  year: String!
+}
