@@ -1,5 +1,5 @@
 module Resolvers
-  class PolicyResolver < GraphQL::Schema::Resolver
+  class PolicyResolver < BaseResolver
     type Types::PolicyType, null: false
     argument :policy_id, String
 
