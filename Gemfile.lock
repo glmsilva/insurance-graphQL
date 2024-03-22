@@ -75,11 +75,15 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    amq-protocol (2.3.2)
     base64 (0.2.0)
     bigdecimal (3.1.7)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    bunny (2.22.0)
+      amq-protocol (~> 2.3, >= 2.3.1)
+      sorted_set (~> 1, >= 1.0.2)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -178,6 +182,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rake (13.1.0)
+    rbtree (0.4.6)
     rdoc (6.6.2)
       psych (>= 4.0.0)
     reline (0.4.3)
@@ -199,6 +204,10 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
+    set (1.1.0)
+    sorted_set (1.0.3)
+      rbtree
+      set (~> 1.0)
     sqlite3 (1.7.3-aarch64-linux)
     sqlite3 (1.7.3-arm-linux)
     sqlite3 (1.7.3-arm64-darwin)
@@ -226,6 +235,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  bunny
   debug
   graphql
   puma (>= 5.0)
