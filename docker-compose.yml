@@ -10,7 +10,7 @@ services:
     networks:
         - insura_net
 
-  networks:
+networks:
   insura_net:
     name: insurance-network
     external: true
