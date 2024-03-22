@@ -3,5 +3,5 @@
 
 require_relative "config/application"
 require "graphql/rake_task"
-GraphQL::RakeTask.new(schema_name: "Schema")
+GraphQL::RakeTask.new(schema_name: "AppSchema")
 Rails.application.load_tasks

@@ -13,6 +13,13 @@ type InsuredPerson {
   name: String!
 }
 
+type Mutation {
+  """
+  An example field added by the generator
+  """
+  testField: String!
+}
+
 """
 a policy type
 """
