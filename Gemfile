@@ -8,13 +8,13 @@ gem "sqlite3", "~> 1.4"
 gem "graphql"
 gem "bunny"
 gem "puma", ">= 5.0"
-gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "rspec-rails"
   gem "pry"
+  gem "webmock"
 end
 
 group :development do
