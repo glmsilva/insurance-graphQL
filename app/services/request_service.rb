@@ -11,8 +11,7 @@ class RequestService
   end
 
   def request_get(path)
-    Net::HTTP.new(@http.ipaddr, @http.port)
-              .request_get(path)
-              .read_body
+    @http.request_get(path)
+         .read_body
   end
 end

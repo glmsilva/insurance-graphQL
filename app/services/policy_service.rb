@@ -1,17 +1,15 @@
-module Services
-  class PolicyService
-    ROUTES = {
-      "policy" = "/policies/%d",
-      "policies" = "/policies"
-    }
+class PolicyService
+  ROUTES = {
+    "policy": "/policies/%d",
+    "policies": "/policies"
+  }
 
-    def get_policy(id)
-      path = ROUTES[:policy] % id
-      req = RequestService.get(path)
-      req.to_h
-    end
+  def get_policy(id:)
+    path = ROUTES[:policy] % id
+    req = RequestService.get(path)
+    JSON.parse(req).deep_symbolize_keys
+  end
 
-    def create_policy
-    end
+  def create_policy
   end
 end

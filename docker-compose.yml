@@ -1,5 +1,6 @@
 services:
   insurance_graphql:
+    container_name: "insurance-graphql"
     build:
       context: ./
       dockerfile: Dockerfile-dev
