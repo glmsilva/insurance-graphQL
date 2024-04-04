@@ -9,6 +9,7 @@ gem "graphql"
 gem "bunny"
 gem "puma", ">= 5.0"
 gem "bootsnap", require: false
+gem "dry-validation"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
