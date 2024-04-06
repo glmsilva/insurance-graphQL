@@ -4,8 +4,8 @@ describe 'Create Policy Mutation', type: :request do
   context 'when all attributes are valid' do
     let(:query) do
       <<-Mutation
-      mutation {
-        createPolicy(input: {
+        mutation {
+          createPolicy(input: {
           insuredPerson: {
             name: "Erling Haaland",
             cpf: "123.456.789-10"
@@ -25,6 +25,7 @@ describe 'Create Policy Mutation', type: :request do
               cpf
             }
           }
+          errors { message }
         }
       }
       Mutation
@@ -34,7 +35,6 @@ describe 'Create Policy Mutation', type: :request do
       post '/graphql', params: { query: query }
 
       response_body = JSON.parse(response.body)
-
       expect(response_body["data"]["createPolicy"]).to eq(
         {
           "policy"=> {
@@ -44,7 +44,8 @@ describe 'Create Policy Mutation', type: :request do
               "name"=> 'Erling Haaland',
               "cpf"=> '123.456.789-10'
             }
-          }
+          },
+          "errors" => nil
         }
       )
     end
@@ -57,11 +58,12 @@ describe 'Create Policy Mutation', type: :request do
           mutation {
             createPolicy(input: {
               insuredPerson: {
-                cpf: "123.456.789-20"
+                name: "",
+                cpf: ""
               },
               vehicle: {
-                brand: "Volkswagen",
-                model: "Fusca",
+                brand: "",
+                model: "",
                 year: "1969",
                 licensePlate: "ABC1D23"
               }}
@@ -74,21 +76,25 @@ describe 'Create Policy Mutation', type: :request do
                   cpf
                 }
               }
-            errors { message } 
+            errors { message }
           }
         }
       Mutation
     end
 
 
-      it 'throws error' do
+      it 'does not create a policy' do
         post '/graphql', params: { query: query }
 
         response_body = JSON.parse(response.body)
-        binding.pry
-        expect(response_body["data"]["createPolicy"]).to eq(
-          { "policy" => { "errors": "erro" } }
-        )
+        expect(response_body["data"]["createPolicy"]["policy"]).to eq nil
+        expect(response_body["data"]["createPolicy"]["errors"]).to eq([
+          { "message" => "name must be filled" },
+          { "message" => "cpf must be filled" },
+          { "message" => "brand must be filled" },
+          { "message" => "model must be filled" }
+        ])
+
       end
     end
   end

@@ -2,8 +2,8 @@
 
 module Mutations
   class CreatePolicyMutation < Mutations::BaseMutation
-    argument :insured_person, ::Inputs::InsuredPersonInput, required: true
-    argument :vehicle, ::Inputs::VehicleInput, required: true
+    argument :insured_person, ::Inputs::InsuredPersonInput
+    argument :vehicle, ::Inputs::VehicleInput
 
     field :policy, ::Types::PolicyType
     field :errors, [::Types::UserErrorType]
@@ -16,16 +16,20 @@ module Mutations
         vehicle: { **params[:vehicle] }
       }
 
-      contract = PolicyContract.new
+      contract = ::PolicyContract.new
       validation = contract.call(policy_payload)
 
+
       if validation.errors.any?
-        return
-        {
-          policy: {},
-          errors: validation.errors(full: true).to_h
-        }
-      end
+        user_errors = []
+        validation.errors(full: true).to_h.each do |k,v|
+          v.each do |k1, v1|
+            user_errors << {message: v1.first, path: k}
+          end
+        end
+
+        return { policy: {}, errors: user_errors }
+        end
 
       {
         "policy": {
