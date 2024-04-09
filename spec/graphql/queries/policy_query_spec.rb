@@ -5,8 +5,8 @@ describe 'Policy Query', type: :request do
     before do
       stub_request(:get, "insurance-rest:3000/policies/1")
         .to_return(
-          body: { 
-            policy_id: "1",
+          body: {
+            id: 1,
             effective_date: "10-03-2024",
             expiration_date: "10-03-2025",
             insured_person: {

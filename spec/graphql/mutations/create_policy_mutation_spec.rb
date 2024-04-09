@@ -18,6 +18,7 @@ describe 'Create Policy Mutation', type: :request do
           }}
         ){
           policy {
+            policyId
             effectiveDate
             expirationDate
             insuredPerson {
@@ -32,20 +33,31 @@ describe 'Create Policy Mutation', type: :request do
     end
 
     it 'creates successfully' do
+
+      allow_any_instance_of(PolicyPublisher).to receive(:call).and_return({"id" => 1, "effective_date" =>"2024-01-01",
+            "expiration_date" => '2025-01-01',
+            "insured_person" => {
+              "name"=> 'Erling Haaland',
+              "cpf"=> '123.456.789-10'
+        }}.to_json
+      )
+
       post '/graphql', params: { query: query }
 
       response_body = JSON.parse(response.body)
+
       expect(response_body["data"]["createPolicy"]).to eq(
         {
           "policy"=> {
-           "effectiveDate" =>"2024-01-01",
+            "policyId" => "1",
+            "effectiveDate" =>"2024-01-01",
             "expirationDate" => '2025-01-01',
             "insuredPerson" => {
               "name"=> 'Erling Haaland',
               "cpf"=> '123.456.789-10'
             }
           },
-          "errors" => nil
+          "errors" => []
         }
       )
     end
