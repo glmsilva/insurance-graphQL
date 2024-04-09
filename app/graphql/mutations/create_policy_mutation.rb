@@ -29,20 +29,30 @@ module Mutations
         end
 
         return { policy: {}, errors: user_errors }
-        end
+      end
+
+      policy_published = PolicyPublisher.call(policy_payload)
+
+      if policy_published.nil?
+        return { policy: nil, errors: nil }
+      end
+
+      policy_published = JSON.parse(policy_published)
+
+      if policy_published.with_indifferent_access.has_key? :errors
+        policy_errors = []
+        policy_published.each_value { |v| policy_errors << { message: v, path: nil } }
+
+        return {
+          policy: nil,
+          errors: policy_errors
+        }
+      end
 
       {
-        "policy": {
-          "effective_date": "2024-01-01",
-          "expiration_date": "2025-01-01",
-          "insured_person": {
-            "name": "Erling Haaland",
-            "cpf": "123.456.789-10"
-          },
-          errors: []
-        }
+        policy: policy_published,
+        errors: {}
       }
-
     end
   end
 end
