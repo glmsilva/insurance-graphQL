@@ -34,7 +34,7 @@ module Mutations
       policy_published = PolicyPublisher.call(policy_payload)
 
       if policy_published.nil?
-        return { policy: nil, errors: nil }
+        return { policy: nil, errors: [] }
       end
 
       policy_published = JSON.parse(policy_published)
