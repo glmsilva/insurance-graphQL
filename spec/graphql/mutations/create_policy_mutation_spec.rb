@@ -33,7 +33,6 @@ describe 'Create Policy Mutation', type: :request do
     end
 
     it 'creates successfully' do
-
       allow_any_instance_of(PolicyPublisher).to receive(:call).and_return({"id" => 1, "effective_date" =>"2024-01-01",
             "expiration_date" => '2025-01-01',
             "insured_person" => {
