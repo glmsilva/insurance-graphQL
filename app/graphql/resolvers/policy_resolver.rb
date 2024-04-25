@@ -10,7 +10,7 @@ module Resolvers
     private
 
     def policy_client
-      @policy_client ||= Net::HTTP.new("insurance-rest", 3000)
+      @policy_client ||= Net::HTTP.new(ENV["INSURANCE_API"], ENV["INSURANCE_API_PORT"])
     end
 
     def policy_request(id:)
