@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Policies Query', type: :request do
   context 'when query all policies' do
     before do
-      stub_request(:get,"http://insurance-rest:3000/policies")
+      stub_request(:get,"http://insurance-rest:5000/policies")
         .to_return(body: [{
             id: 1,
             effective_date: "10-03-2024",
@@ -44,7 +44,7 @@ describe 'Policies Query', type: :request do
         }
       String
 
-      post '/graphql', params: { query: query }
+      post '/graphql', params: { query: query }, headers: { 'AUTHORIZATION' => 'Bearer tokendeteste' }
 
       response_body = JSON.parse(response.body)
 

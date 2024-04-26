@@ -31,17 +31,17 @@ module Mutations
         return { policy: {}, errors: user_errors }
       end
 
-      policy_published = PolicyPublisher.call(policy_payload)
+      policy = PolicyService.create_policy(policy_payload)
 
-      if policy_published.nil?
+      if policy.nil?
         return { policy: nil, errors: [] }
       end
 
-      policy_published = JSON.parse(policy_published)
+      policy = JSON.parse(policy)
 
-      if policy_published.with_indifferent_access.has_key? :errors
+      if policy.with_indifferent_access.has_key? :errors
         policy_errors = []
-        policy_published.each_value { |v| policy_errors << { message: v, path: nil } }
+        policy.each_value { |v| policy_errors << { message: v, path: nil } }
 
         return {
           policy: nil,
@@ -50,7 +50,7 @@ module Mutations
       end
 
       {
-        policy: policy_published,
+        policy: policy,
         errors: {}
       }
     end

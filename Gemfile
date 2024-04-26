@@ -12,6 +12,7 @@ gem "bootsnap", require: false
 gem "dry-validation"
 gem "dotenv"
 gem "jwt"
+gem "faraday"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]

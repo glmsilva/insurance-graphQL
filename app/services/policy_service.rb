@@ -1,15 +1,25 @@
-class PolicyService
-  ROUTES = {
-    "policy": "/policies/%d",
-    "policies": "/policies"
-  }
+module PolicyService
+  def self.get_policy(args)
+    conn = Faraday.new(url: ENV['INSURANCE_API'])
+    res = conn.get "/policies/#{args[:id]}" do |req|
+      req.headers[:content_type] = "application/json"
+      req.headers[:authorization] = "Bearer #{args[:token]}"
+    end
 
-  def get_policy(id:)
-    path = ROUTES[:policy] % id
-    req = RequestService.get(path)
-    JSON.parse(req).deep_symbolize_keys
+    res.body
   end
 
-  def create_policy
+  def self.get_policies(token:)
+    conn = Faraday.new(url: ENV['INSURANCE_API'])
+    res = conn.get "/policies" do |req|
+      req.headers[:content_type] = "application/json"
+      req.headers[:authorization] = "Bearer #{token}"
+    end
+
+    res.body
+  end
+
+  def self.create_policy(payload)
+    PolicyPublisher.call(payload)
   end
 end
