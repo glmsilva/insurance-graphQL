@@ -11,6 +11,7 @@ gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 gem "dry-validation"
 gem "dotenv"
+gem "stripe"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
