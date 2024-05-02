@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe "PolicyService" do
   describe "#get_policy" do
-
     before do
       stub_request(:get, "insurance-rest:5000/policies/1")
         .to_return(

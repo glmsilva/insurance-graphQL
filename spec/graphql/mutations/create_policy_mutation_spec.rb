@@ -33,13 +33,15 @@ describe 'Create Policy Mutation', type: :request do
     end
 
     it 'creates successfully' do
-      allow_any_instance_of(PolicyPublisher).to receive(:call).and_return({"id" => 1, "effective_date" =>"2024-01-01",
+      allow(PolicyService).to receive(:create_policy).and_return({"id" => 1, "effective_date" =>"2024-01-01",
             "expiration_date" => '2025-01-01',
             "insured_person" => {
               "name"=> 'Erling Haaland',
               "cpf"=> '123.456.789-10'
         }}.to_json
       )
+
+      allow_any_instance_of(PolicyPublisher).to receive(:call)
 
       post '/graphql', params: { query: query }
 
