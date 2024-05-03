@@ -8,11 +8,15 @@ describe 'Webhook', type: :request do
         data: {
           object: {
             id: "seti_1NG8Du2eZvKYlo2C9XMqbR0x",
-            object: "payment_intent",
-            customer: "banana"
+            object: "checkout_session",
+            customer: "banana",
+            metadata: {
+              insured_person_name: "Cristiano Ronaldo",
+              policy_id: "123"
+            }
           }
         },
-        type: "payment_intent.succeeded"
+        type: "checkout.session.completed"
       }
     end
 

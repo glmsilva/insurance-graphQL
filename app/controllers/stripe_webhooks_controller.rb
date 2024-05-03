@@ -7,18 +7,19 @@ class StripeWebhooksController < ApplicationController
     end
 
     case @event.type
-    when 'payment_intent.succeeded'
-      @payment_intent = @event.data.object
-      handle_payment_intent_succeeded
+    when 'checkout.session.completed'
+      @payment_completed = @event.data.object
+      handle_checkout_session_completed
       head 200
     else
       Rails.logger.info "Event Type não especificado: #{@event.type}"
+      head 400
     end
   end
 
   private
 
-  def handle_payment_intent_succeeded
-    PaymentPublisher.execute(@payment_intent)
+  def handle_checkout_session_completed
+    PaymentPublisher.execute(@payment_completed)
   end
 end
