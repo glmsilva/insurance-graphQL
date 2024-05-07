@@ -9,7 +9,7 @@ module Types
     field :vehicle, Types::VehicleType, null: false, description: "the good of the insured"
 
     def policy_id
-      object["id"]
+      object[:id]
     end
   end
 end

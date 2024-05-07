@@ -2,9 +2,8 @@ require 'rails_helper'
 
 describe "PolicyService" do
   describe "#get_policy" do
-
     before do
-      stub_request(:get, "insurance-rest:3000/policies/1")
+      stub_request(:get, "insurance-rest:5000/policies/1")
         .to_return(
           body: { 
             policy_id: "abcd1231",
@@ -41,9 +40,9 @@ describe "PolicyService" do
           year: "1969",
           license_plate: "ABC1D23"
         }
-      }
+      }.to_json
 
-      service = PolicyService.new.get_policy(id: 1)
+      service = PolicyService.get_policy(id: 1)
       expect(service).to eq(res)
     end
   end
